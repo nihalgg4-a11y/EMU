@@ -1,62 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Emu 💘</title>
+<title>For Emu 💖</title>
 
 <style>
 body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(135deg,#ff9a9e,#fecfef);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff9a9e,#fecfef);
   font-family: Arial, sans-serif;
-  text-align: center;
-  overflow: hidden;
+  text-align:center;
+  overflow:hidden;
 }
 
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.2);
-  max-width: 420px;
-  z-index: 2;
+.card{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  max-width:420px;
+  position:relative;
+  z-index:2;
 }
 
-img {
-  width: 100%;
-  border-radius: 15px;
+img{
+  width:100%;
+  border-radius:15px;
+  margin-bottom:15px;
 }
 
-h1 {
-  color: #ff2e63;
+h1{ color:#ff2e63; margin:10px 0; }
+
+p{ font-size:18px; }
+
+button{
+  padding:12px 22px;
+  font-size:18px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  margin:10px;
+  transition:.2s;
 }
 
-button {
-  padding: 12px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 10px;
-  font-size: 18px;
-  cursor: pointer;
+.yes{ background:#ff2e63; color:white; }
+.no{ background:#ddd; }
+
+button:hover{
+  transform:scale(1.1);
 }
 
-.yes { background:#ff2e63; color:white; }
-.no { background:#ccc; }
-
-.heart {
-  position: fixed;
-  font-size: 24px;
-  animation: fall linear forwards;
+.heart{
+  position:fixed;
+  top:-10px;
+  font-size:22px;
+  animation:fall linear forwards;
 }
 
-@keyframes fall {
-  to {
-    transform: translateY(110vh);
-    opacity: 0;
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+    opacity:0;
   }
 }
 </style>
@@ -64,11 +72,52 @@ button {
 
 <body>
 
-<audio id="song" src="music.mp3"></audio>
+<!-- AUDIO -->
+<audio id="song">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-<div class="card">
-  <img src="emu.JPG">
+<div class="card" id="card">
+  <img src="emu.JPG" alt="Emu">
 
   <h1>Emu 😳</h1>
-  <p>Will you be my Valentine?  
-  I promise to share fries… sometimes
+  <p>Will you be my Valentine? 💘<br>
+  I offer snacks, loyalty, and premium stupidity.</p>
+
+  <button class="yes" onclick="sayYes()">YES 😍</button>
+  <button class="no" onmouseover="moveNo(this)">NO 🙈</button>
+</div>
+
+<script>
+function sayYes(){
+  document.getElementById("card").innerHTML =
+    "<h1>YAYYY ❤️</h1><p>You just upgraded my life plan 😌</p>";
+
+  // PLAY MUSIC AFTER CLICK
+  const song = document.getElementById("song");
+  song.play().catch(()=>{});
+
+  // HEART RAIN
+  setInterval(makeHeart, 200);
+}
+
+function moveNo(btn){
+  btn.style.position="absolute";
+  btn.style.left=Math.random()*80+"%";
+  btn.style.top=Math.random()*80+"%";
+}
+
+function makeHeart(){
+  const h = document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration = (3+Math.random()*3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+}
+</script>
+
+</body>
+</html>
+
